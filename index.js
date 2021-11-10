@@ -20,9 +20,15 @@ async function run() {
   try {
     await client.connect();
     console.log("hijibiji db connected");
-    // const database = client.db('doctors_portal');
-    // const appointmentsCollection = database.collection('appointments');
-    // const usersCollection = database.collection('users');
+    const database = client.db("hijibiji_canvas");
+    const servicesCollection = database.collection("services");
+
+    //get services api
+    app.get("/services", async (req, res) => {
+      const cursor = servicesCollection.find({});
+      const services = await cursor.toArray();
+      res.send(services);
+    });
   } finally {
     // await client.close();
   }
