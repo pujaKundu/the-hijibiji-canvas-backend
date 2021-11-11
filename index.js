@@ -24,6 +24,7 @@ async function run() {
     const database = client.db("hijibiji_canvas");
     const servicesCollection = database.collection("services");
     const ordersCollection = database.collection("orders");
+    const usersCollection = database.collection("users");
 
     //get services api
     app.get("/services", async (req, res) => {
@@ -65,6 +66,22 @@ async function run() {
       console.log("deleted", id);
       const query = { _id: ObjectId(id) };
       const result = await ordersCollection.deleteOne(query);
+      res.json(result);
+    });
+
+    //users collection post api
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const result = await usersCollection.insertOne(user);
+      console.log(result);
+      res.json(result);
+    });
+
+    app.put("/users/admin", async (req, res) => {
+      const user = req.body;
+      const filter = { email: user.email };
+      const updateDoc = { $set: { role: "admin" } };
+      const result = await usersCollection.updateOne(filter, updateDoc);
       res.json(result);
     });
   } finally {
