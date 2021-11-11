@@ -54,7 +54,7 @@ async function run() {
       res.json(orders);
     });
     //get all orders api
-    app.get("/orders", async (req, res) => {
+    app.get("/allOrders", async (req, res) => {
       const cursor = ordersCollection.find({});
       const results = await cursor.toArray();
       res.send(results);
