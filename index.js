@@ -23,6 +23,7 @@ async function run() {
     console.log("hijibiji db connected");
     const database = client.db("hijibiji_canvas");
     const servicesCollection = database.collection("services");
+    const ordersCollection = database.collection("orders");
 
     //get services api
     app.get("/services", async (req, res) => {
@@ -37,6 +38,12 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const result = await servicesCollection.findOne(query);
       res.send(result);
+    });
+    //post order api
+    app.post("/orders", async (req, res) => {
+      const order = req.body;
+      const result = await ordersCollection.insertOne(order);
+      res.json(result);
     });
   } finally {
     // await client.close();
