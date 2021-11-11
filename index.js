@@ -45,6 +45,20 @@ async function run() {
       const result = await ordersCollection.insertOne(order);
       res.json(result);
     });
+    //api email based
+    app.get("/orders", async (req, res) => {
+      const email = req.query.email;
+      const query = { email: email };
+      const cursor = ordersCollection.find(query);
+      const orders = await cursor.toArray();
+      res.json(orders);
+    });
+    //get all orders api
+    app.get("/orders", async (req, res) => {
+      const cursor = ordersCollection.find({});
+      const results = await cursor.toArray();
+      res.send(results);
+    });
   } finally {
     // await client.close();
   }
