@@ -6,7 +6,7 @@ require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 require("dotenv").config();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6000;
 //middleware
 
 app.use(cors());
@@ -47,6 +47,14 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const result = await servicesCollection.findOne(query);
       res.send(result);
+    });
+    //delete service api
+    app.delete("/services/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log("deleted", id);
+      const query = { _id: ObjectId(id) };
+      const result = await servicesCollection.deleteOne(query);
+      res.json(result);
     });
     //post order api
     app.post("/orders", async (req, res) => {
