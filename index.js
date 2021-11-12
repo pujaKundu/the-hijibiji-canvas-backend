@@ -1,13 +1,14 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
-const ObjectId = require("mongodb").ObjectId;
-const port = process.env.PORT || 5000;
+const cors = require("cors");
+// const admin = require("firebase-admin");
+require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 require("dotenv").config();
-
+const port = process.env.PORT || 5000;
 //middleware
+
 app.use(cors());
 app.use(express.json());
 
@@ -75,7 +76,7 @@ async function run() {
       const query = { email: email };
       const user = await usersCollection.findOne(query);
       let isAdmin = false;
-      if (user.role === "admin") {
+      if (user?.role === "admin") {
         isAdmin = true;
       }
       res.json({ admin: isAdmin });
