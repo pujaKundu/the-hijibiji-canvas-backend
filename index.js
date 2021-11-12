@@ -25,6 +25,7 @@ async function run() {
     const database = client.db("hijibiji_canvas");
     const servicesCollection = database.collection("services");
     const ordersCollection = database.collection("orders");
+    const reviewsCollection = database.collection("reviews");
     const usersCollection = database.collection("users");
 
     //get services api
@@ -95,6 +96,12 @@ async function run() {
       const updateDoc = { $set: { role: "admin" } };
       const result = await usersCollection.updateOne(filter, updateDoc);
       res.json(result);
+    });
+    //post review
+    app.post("/reviews", async (req, res) => {
+      const review = req.body;
+      const result = await reviewsCollection.insertOne(review);
+      res.send(result);
     });
   } finally {
     // await client.close();
