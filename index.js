@@ -6,7 +6,7 @@ require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 require("dotenv").config();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 //middleware
 
 app.use(cors());
@@ -28,6 +28,12 @@ async function run() {
     const reviewsCollection = database.collection("reviews");
     const usersCollection = database.collection("users");
 
+    //post product
+    app.post("/services", async (req, res) => {
+      const service = req.body;
+      const result = await servicesCollection.insertOne(service);
+      res.json(result);
+    });
     //get services api
     app.get("/services", async (req, res) => {
       const cursor = servicesCollection.find({});
