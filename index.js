@@ -6,7 +6,7 @@ require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 require("dotenv").config();
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5000;
 //middleware
 
 app.use(cors());
@@ -75,6 +75,28 @@ async function run() {
       const cursor = ordersCollection.find({});
       const results = await cursor.toArray();
       res.send(results);
+    });
+    app.get("/allOrders/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log("Hitting id", id);
+      const query = { _id: ObjectId(id) };
+      const result = await ordersCollection.findOne(query);
+      res.send(result);
+    });
+    app.put("/allOrders/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const filter = { _id: ObjectId(id) };
+
+      ordersCollection
+        .updateOne(filter, {
+          $set: {
+            state: "Shipped",
+          },
+        })
+        .then((result) => {
+          res.send(result);
+        });
     });
     //delete api
     app.delete("/allOrders/:id", async (req, res) => {
