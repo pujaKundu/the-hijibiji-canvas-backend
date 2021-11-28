@@ -2,14 +2,18 @@
 
 Visit website [The HijiBiji Canvas](https://the-hijibiji-canvas.web.app/).
 
+## Technologies:
+
+React JS, Material-UI, Firebase, Node.js, Express.js, MongoDB, Heroku.
+
 ## About this website
 
-This is a single product website where you will find paintings . User can view all paintings and order paintings. Admin will manage internal functionalities.
+A full-stack niche website where user can buy paintings with various user and admin functionalities.
 
 ### Features
 
-- Website vistors can see some paintings ,caegories and reviews on the homepage.
-- The explore products page contains all paintings and is open for all visitors.
-- Visitors will have to register and login to order paintings and use other functionalities.
-- Visitors can cancel their order anytime.
-- Admin will manage orders,products and add new product.
+- User functionalities include registration using password authentication, ordering paintings, canceling an order, seeing orders, and adding reviews.
+- Admin functionalities include adding new paintings, deleting a painting, managing products, managing user orders, and making a new admin.
+- Password authentication for users to access various user functionalities.
+- Separate route for user and admin.
+- Clean and responsive user interface.
